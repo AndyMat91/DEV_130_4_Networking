@@ -11,9 +11,10 @@ public class TCPServer {
     private final int PORT = 55400;
     private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
     private Date date;
+
     public void start() {
 
-        try (ServerSocket server = new ServerSocket(PORT)){
+        try (ServerSocket server = new ServerSocket(PORT)) {
             System.out.println("TCP сервер запущен");
             while (true) {
                 client(server.accept());
@@ -24,12 +25,12 @@ public class TCPServer {
     }
 
     private void client(Socket socket) {
-        try (Socket sock = socket){
-            BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+        try (Socket sock = socket;
+             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()))) {
             StringBuilder sb = new StringBuilder();
             String line;
-            while ((line = reader.readLine())!=null) {
+            while ((line = reader.readLine()) != null) {
                 sb.append(line);
             }
             date = new Date();

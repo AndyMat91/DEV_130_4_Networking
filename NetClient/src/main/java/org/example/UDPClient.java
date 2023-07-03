@@ -12,11 +12,11 @@ public class UDPClient {
 
     public void start() {
 
-        try (DatagramSocket socketOutput = new DatagramSocket(); DatagramSocket socketInput = new DatagramSocket(INPUT_PORT)) {
+        try (DatagramSocket socketOutput = new DatagramSocket(); DatagramSocket socketInput = new DatagramSocket(INPUT_PORT);
+             BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
             DatagramPacket outputPacket = new DatagramPacket(new byte[LENGTH], LENGTH, InetAddress.getByName("127.0.0.1"), OUTPUT_PORT);
             DatagramPacket inputPacket = new DatagramPacket(new byte[LENGTH], LENGTH);
             System.out.println("Введите сообщение, которое хотите отправить: ");
-            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
             String outputMsg = br.readLine();
             byte[] buff = outputMsg.getBytes();
             for (int i = 0; i < outputMsg.length(); i += LENGTH) {
